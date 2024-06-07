@@ -17,7 +17,8 @@ class DBConnect {
         }
     }
 
-    public function getPDO() {
+    public function getPDO()
+    {
         return $this->pdo;
     }
     
