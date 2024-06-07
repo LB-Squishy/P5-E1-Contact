@@ -11,21 +11,36 @@ $pdo = $db->getPDO();
 // Initialise ContactManager
 $contactManager = new ContactManager($pdo);
 
+// Fonction pour mettre en couleur le texte
+function colorerTerminal($text, $colorCode) {
+    return "\033[{$colorCode}m{$text}\033[0m";
+}
+
+// Couleur pour les textes d ouverture et de fermeture
+$openCloseColor = "1;34"; // Bleu clair
+
+// Couleur pour les titres
+$titleColor = "1;32"; // Vert
+
+// Couleur pour les erreurs
+$errorColor = "1;31"; // Rouge clair
+
 // Boucle des commandes utilisateur
-echo(
+echo colorerTerminal(
     "\n\n" 
-    . "==| BIENVENUE |================================================================================" 
-    . "\n\n" . "Attention à la syntaxe des commandes, les espaces et virgules sont importantes." 
-    . "\n"
+    . "==| BIENVENUE |================================================================================" . "\n\n" 
+    . "    => Vous retrouverez ici la liste de tout vos contacts." . "\n"
+    . "    => Saisissez 'help' pour accéder à l'aide." . "\n\n"
+    . "===============================================================================================" . "\n"
+    , $openCloseColor
 );
 
 while (true) {
-    echo "\n" . "-------------------------------------------------------------------------------------------" . "\n\n";
+    echo "\n" . "-----------------------------------------------------------------------------------------------" . "\n\n";
     $line = readline("Entrez votre commande (help, list, detail, creat, delete, quit) : ");
-    echo "\n" . "-------------------------------------------------------------------------------------------" . "\n";
     switch ($line) {
         case "help":          
-            echo "\n" . "DETAIL DE LA LISTE DES COMMANDES : " . "\n";
+            echo colorerTerminal( "\n" . "DETAIL DE LA LISTE DES COMMANDES : " . "\n", $titleColor);
             echo "\n" . "- help : Affiche cet espace d'aide" . "\n";
             echo "\n" . "- list : Liste les contacts" . "\n";
             echo "\n" . "- detail [id] : Fourni le détail d'un contact" . "\n";
@@ -34,18 +49,18 @@ while (true) {
             echo "\n" . "- quit : Quitter l'application" . "\n";       
             break;
         case "list":        
-            echo "\n" . "LISTE DES CONTACTS : " . "\n";
+            echo colorerTerminal("\n" . "LISTE DES CONTACTS : " . "\n", $titleColor);
             $contacts = $contactManager->findAll();
             foreach ($contacts as $contact) {
                 echo "\n" . $contact->__toString() . "\n";
             }        
             break;
         case "quit":   
-            echo "\n" . "==| AU REVOIR |================================================================================"  . "\n\n";
+            echo colorerTerminal("\n" . "==| AU REVOIR |================================================================================"  . "\n\n", $openCloseColor);
             exit();      
             break;
         default:
-            echo "\n" . "Vous avez saisi : $line" . "\n" . "==> $line n'est pas une commande de la liste." . "\n" . "==> n'hésitez pas à saisir 'help' pour accéder à l'aide." . "\n";
+            echo colorerTerminal("\n" . "Vous avez saisi : $line" . "\n" . "==> $line n'est pas une commande de la liste." . "\n" . "==> n'hésitez pas à saisir 'help' pour accéder à l'aide." . "\n", $errorColor);
             break;
     } 
 }
