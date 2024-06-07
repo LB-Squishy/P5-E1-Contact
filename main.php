@@ -3,6 +3,7 @@
 require_once './config/config.php';
 require_once './database/DBConnect.php';
 require_once './models/ContactManager.php';
+require_once './utils/colorTerminal.php';
 
 // Créé une instance de DBConnect et get l'objet PDO
 $db = new DBConnect($dsn, $user, $password);
@@ -10,20 +11,6 @@ $pdo = $db->getPDO();
 
 // Initialise ContactManager
 $contactManager = new ContactManager($pdo);
-
-// Fonction pour mettre en couleur le texte
-function colorerTerminal($text, $colorCode) {
-    return "\033[{$colorCode}m{$text}\033[0m";
-}
-
-// Couleur pour les textes d ouverture et de fermeture
-$openCloseColor = "1;34"; // Bleu clair
-
-// Couleur pour les titres
-$titleColor = "1;32"; // Vert
-
-// Couleur pour les erreurs
-$errorColor = "1;31"; // Rouge clair
 
 // Boucle des commandes utilisateur
 echo colorerTerminal(
