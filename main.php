@@ -1,7 +1,7 @@
 <?php
 
 require_once './config/config.php';
-require_once './models/DBConnect.php';
+require_once './database/DBConnect.php';
 require_once './models/ContactManager.php';
 
 // Créé une instance de DBConnect et get l'objet PDO

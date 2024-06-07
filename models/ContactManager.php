@@ -17,7 +17,6 @@ class ContactManager {
             $requete = $this->pdo->prepare('SELECT * FROM contact');
             $requete->execute();
             $allContacts = $requete->fetchAll();
-            $contacts = [];
 
             foreach ($allContacts as $oneContact) {
                 $contact = new Contact();
@@ -34,7 +33,7 @@ class ContactManager {
 
             echo 'Echec de récupération des données' . $e->getMessage() . "<br/>";
             die();
-            
+
         }
     }
 
