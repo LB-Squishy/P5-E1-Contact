@@ -1,5 +1,5 @@
 <?php
-require_once 'Contact.php';
+require_once './entities/Contact.php';
 
 class ContactManager {
 

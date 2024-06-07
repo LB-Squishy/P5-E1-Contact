@@ -14,23 +14,38 @@ $contactManager = new ContactManager($pdo);
 // Boucle des commandes utilisateur
 echo(
     "\n\n" 
-    . "--BIENVENUE--------------------------------------------------------------------------------" 
+    . "==| BIENVENUE |================================================================================" 
     . "\n\n" . "Attention à la syntaxe des commandes, les espaces et virgules sont importantes." 
-    . "\n\n"
+    . "\n"
 );
 
 while (true) {
+    echo "\n" . "-------------------------------------------------------------------------------------------" . "\n\n";
     $line = readline("Entrez votre commande (help, list, detail, creat, delete, quit) : ");
+    echo "\n" . "-------------------------------------------------------------------------------------------" . "\n";
     switch ($line) {
-        case "list":
-            echo "\n" . "Liste des contacts : " . "\n\n";
+        case "help":          
+            echo "\n" . "DETAIL DE LA LISTE DES COMMANDES : " . "\n";
+            echo "\n" . "- help : Affiche cet espace d'aide" . "\n";
+            echo "\n" . "- list : Liste les contacts" . "\n";
+            echo "\n" . "- detail [id] : Fourni le détail d'un contact" . "\n";
+            echo "\n" . "- creat [name], [email], [phone_number] : Crée un nouveau contact" . "\n";
+            echo "\n" . "- delete [id] : Supprime un contact" . "\n";
+            echo "\n" . "- quit : Quitter l'application" . "\n";       
+            break;
+        case "list":        
+            echo "\n" . "LISTE DES CONTACTS : " . "\n";
             $contacts = $contactManager->findAll();
             foreach ($contacts as $contact) {
-                echo $contact->__toString() . "\n\n";
-            }
+                echo "\n" . $contact->__toString() . "\n";
+            }        
+            break;
+        case "quit":   
+            echo "\n" . "==| AU REVOIR |================================================================================"  . "\n\n";
+            exit();      
             break;
         default:
-            echo "Vous avez saisi : $line" . "\n\n";
+            echo "\n" . "Vous avez saisi : $line" . "\n" . "==> $line n'est pas une commande de la liste." . "\n" . "==> n'hésitez pas à saisir 'help' pour accéder à l'aide." . "\n";
             break;
     } 
 }
