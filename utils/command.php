@@ -39,13 +39,10 @@ class Command {
 
     public function detail($id, $errorColor) 
     {
-        // gère l'absence d'id saisi
-        if ($id === null) {
-            echo colorerTerminal("\n" . "ID du contact manquant. Utilisez la commande comme ceci : detail [id] - ex : 'detail 3' ." . "\n", $errorColor);
-            return;
-        }
-        // gère l'absence d'id correspondant dans la base
-        $contact = $this->contactManager->findById((int)$id);       
+        // Appel d'un contact par Id dans la BDD
+        $contact = $this->contactManager->findById((int)$id);   
+        
+        // Vérification du résultat
         if ($contact) {
             echo "\n" . $contact->__toString() . "\n";    
         } else {
@@ -53,9 +50,17 @@ class Command {
         }        
     }
 
-    public function creat() 
+    public function creat($name, $email, $phone_number, $errorColor, $successColor) 
     {
-        
+        // Création d'un nouveau contact
+        $successCreate = $this->contactManager->create((string)$name, (string)$email, (string)$phone_number);
+
+        // Vérification du résultat
+        if ($successCreate) {
+            echo colorerTerminal("\n" . "Le contact $name a été créé avec succès." . "\n", $successColor);
+        } else {
+            echo colorerTerminal("\n" . "Erreur lors de la création du contact." . "\n", $errorColor);
+        }
     }
 
     public function delete() 

@@ -26,7 +26,7 @@ class ContactManager {
             }  
             return $contacts;
         } catch (PDOException $e) {
-            echo 'Echec de récupération des données' . $e->getMessage() . "<br/>";
+            echo 'Echec de récupération des données' . $e->getMessage();
             die();
         }
     }
@@ -49,8 +49,20 @@ class ContactManager {
                 return null;
             }
         } catch (PDOException $e) {
-            echo 'Echec de récupération des données' . $e->getMessage() . "<br/>";
+            echo 'Echec de récupération des données' . $e->getMessage();
             die();
+        }
+    }
+
+    public function create(string $name, string $email, string $phone_number)
+    {
+        try {
+            $requete = $this->pdo->prepare('INSERT INTO contact (name, email, phone_number) VALUES (?, ?, ?)');
+            $requete->execute([$name, $email, $phone_number]);
+            return true;
+        } catch (PDOException $e) {
+            echo 'Echec d\'envoie des données' . $e->getMessage();
+            return false;
         }
     }
 
