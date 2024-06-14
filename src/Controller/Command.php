@@ -99,7 +99,7 @@ class Command {
                 echo ColorTerminal::colorTerminal("\n" . "Erreur lors de la suppression du contact." . "\n", ColorTerminal::ERROR_COLOR);
             }
         } else {
-            echo ColorTerminal::colorTerminal("\n" . "Cette commande doit fournir un id." . "\n" . "Utilisez la commande comme ceci : creat [name], [email], [phone_number] - ex : 'creat Buffy Summer, buffy@sunnydale.com, 01091901' ." . "\n", ColorTerminal::ERROR_COLOR);
+            echo ColorTerminal::colorTerminal("\n" . "Cette commande doit fournir un id." . "\n" . "Utilisez la commande comme ceci : delete [id] - ex : 'detail 3' ." . "\n", ColorTerminal::ERROR_COLOR);
         }   
     }
 
