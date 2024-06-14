@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../entities/Contact.php';
+require_once __DIR__ . '/../Entity/Contact.php';
 
 class ContactManager {
 
