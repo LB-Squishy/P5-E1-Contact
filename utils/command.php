@@ -1,6 +1,6 @@
 <?php
 
-require_once './models/ContactManager.php';
+require_once __DIR__ . '/../models/ContactManager.php';
 
 class Command {
 
@@ -34,12 +34,23 @@ class Command {
         $contacts = $this->contactManager->findAll();
         foreach ($contacts as $contact) {
             echo "\n" . $contact->__toString() . "\n";
-        }     
+        }  
     }
 
-    public function detail() 
+    public function detail($id, $errorColor) 
     {
-        
+        // gère l'absence d'id saisi
+        if ($id === null) {
+            echo colorerTerminal("\n" . "ID du contact manquant. Utilisez la commande comme ceci : detail [id] - ex : 'detail 3' ." . "\n", $errorColor);
+            return;
+        }
+        // gère l'absence d'id correspondant dans la base
+        $contact = $this->contactManager->findById((int)$id);       
+        if ($contact) {
+            echo "\n" . $contact->__toString() . "\n";    
+        } else {
+            echo colorerTerminal("\n" . "Le contact avec l'ID $id n'a pas été trouvé. Il est probable qu'il n'en existe pas." . "\n", $errorColor);
+        }        
     }
 
     public function creat() 
