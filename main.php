@@ -47,7 +47,7 @@ while (true) {
             $command->creat($name, $email, $phone_number);
             break;
         case "delete":
-            $command->detail($id);
+            $command->delete($id);
             break;
         case "quit":   
             $command->quit();       

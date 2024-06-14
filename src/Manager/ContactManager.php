@@ -66,4 +66,17 @@ class ContactManager {
         }
     }
 
+    public function deleteById(int $id)
+    {
+        try {
+            $requete = $this->pdo->prepare('DELETE FROM contact WHERE id = :id');
+            $requete->bindParam(':id', $id, PDO::PARAM_INT);
+            $requete->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo 'Echec de suppression des données' . $e->getMessage();
+            return false;
+        }
+    }
+
 }

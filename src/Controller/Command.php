@@ -65,7 +65,7 @@ class Command {
                 echo ColorTerminal::colorTerminal("\n" . "Le contact avec l'ID $id n'a pas été trouvé. Il est probable qu'il n'en existe pas." . "\n", ColorTerminal::ERROR_COLOR);
             } 
         } else {
-            echo ColorTerminal::colorTerminal("\n" . "Cette commande doit possèder des données." . "\n" . "Utilisez la commande comme ceci : detail [id] - ex : 'detail 3' ." . "\n", ColorTerminal::ERROR_COLOR);
+            echo ColorTerminal::colorTerminal("\n" . "Cette commande doit fournir un id." . "\n" . "Utilisez la commande comme ceci : detail [id] - ex : 'detail 3' ." . "\n", ColorTerminal::ERROR_COLOR);
         }           
     }
 
@@ -77,18 +77,30 @@ class Command {
             $successCreate = $this->contactManager->create((string)$name, (string)$email, (string)$phone_number);
             // Vérification du résultat
             if ($successCreate) {
-                echo ColorTerminal::colorTerminal("\n" . "Le contact $name a été créé avec succès." . "\n", ColorTerminal::TITLE_COLOR);
+                echo ColorTerminal::colorTerminal("\n" . "Le contact $name a été créé avec succès." . "\n", ColorTerminal::SUCCESS_COLOR);
             } else {
-                echo ColorTerminal::colorTerminal("\n" . "Erreur lors de la création du contact." . "\n", ColorTerminal::SUCCESS_COLOR);
+                echo ColorTerminal::colorTerminal("\n" . "Erreur lors de la création du contact." . "\n", ColorTerminal::ERROR_COLOR);
             }
         } else {
             echo ColorTerminal::colorTerminal("\n" . "Cette commande doit possèder des données." . "\n" . "Utilisez la commande comme ceci : creat [name], [email], [phone_number] - ex : 'creat Buffy Summer, buffy@sunnydale.com, 01091901' ." . "\n", ColorTerminal::ERROR_COLOR);
         }    
     }
 
-    public function delete() 
+    public function delete($id) 
     {
-        
+        echo ColorTerminal::colorTerminal("\n" . "PROCESSUS DE SUPPRESSION DE CONTACT : " . "\n", ColorTerminal::TITLE_COLOR);
+        if ($id) {
+            // Création d'un nouveau contact
+            $successDelete = $this->contactManager->deleteById($id);
+            // Vérification du résultat
+            if ($successDelete) {
+                echo ColorTerminal::colorTerminal("\n" . "Le contact a été supprimé avec succès." . "\n", ColorTerminal::SUCCESS_COLOR);
+            } else {
+                echo ColorTerminal::colorTerminal("\n" . "Erreur lors de la suppression du contact." . "\n", ColorTerminal::ERROR_COLOR);
+            }
+        } else {
+            echo ColorTerminal::colorTerminal("\n" . "Cette commande doit fournir un id." . "\n" . "Utilisez la commande comme ceci : creat [name], [email], [phone_number] - ex : 'creat Buffy Summer, buffy@sunnydale.com, 01091901' ." . "\n", ColorTerminal::ERROR_COLOR);
+        }   
     }
 
     public function quit() 

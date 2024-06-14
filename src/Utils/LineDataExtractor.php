@@ -28,6 +28,10 @@ class LineDataExtractor {
                 echo ColorTerminal::colorTerminal("\n" . "Il manque une des trois données" . "\n" . "Utilisez la commande comme ceci : creat [name], [email], [phone_number] - ex : 'creat Buffy Summer, buffy@sunnydale.com, 01091901' ." . "\n", ColorTerminal::ERROR_COLOR);
                 return "missCreatData";
             }
+        // Utilisation de preg_match pour extraire la valeur de delete
+        } elseif (preg_match('/^delete (\d+)$/', $line, $matches)) {
+            $commandName = 'delete';
+            $id = $matches[1];
         // A default de valeur utiliser le nom de la commande saisi
         } else {
             $commandName = $line;
